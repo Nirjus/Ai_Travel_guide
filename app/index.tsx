@@ -1,15 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
-import Login from "@/components/Login";
+import { Redirect } from "expo-router";
 export default function Index() {
-  return (
-    <View style={styles.container}>
-      <Login />
-    </View>
-  );
+  const isLogin = false;
+  if (!isLogin) return <Redirect href={"/(auth)/getStarted"} />;
+  return <Redirect href={"/(tabs)/travel"} />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

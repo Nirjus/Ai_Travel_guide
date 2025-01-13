@@ -1,4 +1,6 @@
 export const Colors = {
-    WHITE: "#FFF",
-    PRIMARY: "#000"
-}
+  WHITE: "#FFF",
+  PRIMARY: "#000",
+  GRAY: "gray",
+  WARNING: "red",
+};
