@@ -19,9 +19,12 @@ import {
   validatePassword,
 } from "@/utils/formValidation";
 import { useFormField } from "@/utils/formHook";
+import { auth } from "@/config/firebase-config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function SignUp() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     fullName: "",
@@ -32,8 +35,23 @@ export default function SignUp() {
     email: validateEmail,
     password: validatePassword,
   });
-  const handleCreateuser = () => {
+  const handleCreateuser = async () => {
     if (errors.fullName || errors.email || errors.password) return;
+    if (!values.fullName || !values.email || !values.password) return;
+    setLoading(true);
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      router.replace("/(auth)/signIn");
+    } catch (error: any) {
+      console.log("[ERROR in creating user]", error.message);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -70,6 +88,7 @@ export default function SignUp() {
           label="Create Account"
           style={{ marginTop: 30 }}
           onPress={handleCreateuser}
+          loading={loading}
         />
         <CustomButton
           label="Sign In"

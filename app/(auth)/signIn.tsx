@@ -10,9 +10,12 @@ import { useRouter } from "expo-router";
 import { useFormField } from "@/utils/formHook";
 import { validateEmail, validatePassword } from "@/utils/formValidation";
 import { persistUserData } from "@/config/persist-data";
+import { auth } from "@/config/firebase-config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SignIn() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -21,8 +24,24 @@ export default function SignIn() {
     email: validateEmail,
     password: validatePassword,
   });
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     if (errors.email || errors.password) return;
+    if (!values.email || !values.password) return;
+    setLoading(true);
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      console.log(user);
+      router.push("/(tabs)/travel");
+    } catch (error: any) {
+      console.log("[ERROR in login user]", error.message);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -51,6 +70,7 @@ export default function SignIn() {
           label="Sign In"
           style={{ marginTop: 30 }}
           onPress={handleSignIn}
+          loading={loading}
         />
         <CustomButton
           label="Create account"
