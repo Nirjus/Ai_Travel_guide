@@ -4,6 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import "react-native-reanimated";
 import { StatusBar } from "expo-status-bar";
+import { AppProvider } from "@/context/tripContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -26,7 +27,7 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <>
+    <AppProvider>
       <Stack>
         <Stack.Screen
           name="index"
@@ -37,6 +38,6 @@ export default function RootLayout() {
         <Stack.Screen name="trip" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="inverted" />
-    </>
+    </AppProvider>
   );
 }

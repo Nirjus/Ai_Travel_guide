@@ -19,12 +19,11 @@ export default function Index() {
 
   if (loading) {
     return (
-      <View>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
-
   if (!user) return <Redirect href={"/(auth)/getStarted"} />;
   return <Redirect href={"/(tabs)/travel"} />;
 }

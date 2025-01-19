@@ -11,6 +11,13 @@ export default function TripLayout() {
           headerTitle: "Search",
         }}
       />
+      <Stack.Screen
+        name="select-Traveler"
+        options={{
+          headerTransparent: true,
+          headerTitle: "",
+        }}
+      />
     </Stack>
   );
 }
