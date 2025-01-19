@@ -8,7 +8,7 @@ import {
   TouchableOpacityProps,
   View,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import Feather from "@expo/vector-icons/Feather";
 import { Colors } from "@/constants/Colors";
 
@@ -20,58 +20,56 @@ interface ButtonProps extends TouchableOpacityProps {
   textStyle?: TextStyle;
 }
 
-const CustomButton = ({
-  label,
-  IconLeft,
-  IconRight,
-  loading,
-  textStyle,
-  style,
-  ...props
-}: ButtonProps) => {
-  const animatedRef = useRef(new Animated.Value(0)).current;
+const CustomButton = forwardRef<any, ButtonProps>(
+  (
+    { label, IconLeft, IconRight, loading, textStyle, style, ...props },
+    ref
+  ) => {
+    const animatedRef = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    if (loading) {
-      Animated.loop(
-        Animated.timing(animatedRef, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-          easing: Easing.linear,
-        })
-      ).start();
-    } else {
-      animatedRef.stopAnimation();
-    }
-  }, [loading]);
-  const spin = animatedRef.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "360deg"],
-  });
-  return (
-    <TouchableOpacity
-      activeOpacity={0.5}
-      style={[styles.container, loading && { opacity: 0.5 }, style]}
-      disabled={loading}
-      {...props}
-    >
-      {/* Left icon */}
-      <View>{IconLeft && IconLeft}</View>
-      <View>
-        {loading ? (
-          <Animated.View style={[{ transform: [{ rotate: spin }] }]}>
-            <Feather name="loader" size={20} color="white" />
-          </Animated.View>
-        ) : (
-          <Text style={[styles.label, textStyle]}>{label}</Text>
-        )}
-      </View>
-      {/* Right Icon */}
-      <View>{IconRight && IconRight}</View>
-    </TouchableOpacity>
-  );
-};
+    useEffect(() => {
+      if (loading) {
+        Animated.loop(
+          Animated.timing(animatedRef, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+            easing: Easing.linear,
+          })
+        ).start();
+      } else {
+        animatedRef.stopAnimation();
+      }
+    }, [loading]);
+    const spin = animatedRef.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "360deg"],
+    });
+    return (
+      <TouchableOpacity
+        ref={ref}
+        activeOpacity={0.5}
+        style={[styles.container, loading && { opacity: 0.5 }, style]}
+        disabled={loading}
+        {...props}
+      >
+        {/* Left icon */}
+        <View>{IconLeft && IconLeft}</View>
+        <View>
+          {loading ? (
+            <Animated.View style={[{ transform: [{ rotate: spin }] }]}>
+              <Feather name="loader" size={20} color="white" />
+            </Animated.View>
+          ) : (
+            <Text style={[styles.label, textStyle]}>{label}</Text>
+          )}
+        </View>
+        {/* Right Icon */}
+        <View>{IconRight && IconRight}</View>
+      </TouchableOpacity>
+    );
+  }
+);
 
 export default CustomButton;
 

@@ -1,8 +1,8 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface AppContextType {
-  state: object;
-  setState: (state: object) => void;
+  state: any;
+  setState: (state: any) => void;
 }
 
 export const TripContext = createContext<AppContextType | undefined>(undefined);
@@ -10,7 +10,7 @@ export const TripContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [state, setState] = useState<object>([]);
+  const [state, setState] = useState<any>([]);
   return (
     <TripContext.Provider
       value={{

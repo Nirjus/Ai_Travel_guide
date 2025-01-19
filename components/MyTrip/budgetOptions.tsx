@@ -1,24 +1,19 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { TravelerOption } from "@/constants/traveler-option";
-import { Colors } from "@/constants/Colors";
+import { BudgetOptions } from "@/constants/traveler-option";
 import { useAppContext } from "@/context/tripContext";
+import { Colors } from "@/constants/Colors";
 
 type Props = {
-  traveler: TravelerOption;
-  selectTraveler: number;
-  setSelectTraveler: (selectTraveler: number) => void;
+  budget: BudgetOptions;
+  selectBudget: number;
+  setSelectBudget: (selectBudget: number) => void;
 };
-
-const TravelerOptionCard = ({
-  traveler,
-  selectTraveler,
-  setSelectTraveler,
-}: Props) => {
+const BudgetOptionCard = ({ budget, selectBudget, setSelectBudget }: Props) => {
   const { setState, state } = useAppContext();
   const handlePress = () => {
-    setSelectTraveler(traveler.id);
-    setState({ ...state, travelerCount: traveler });
+    setSelectBudget(budget.id);
+    setState({ ...state, budget });
   };
   return (
     <Pressable
@@ -26,22 +21,22 @@ const TravelerOptionCard = ({
         pressed && { opacity: 0.7 },
         {
           backgroundColor:
-            selectTraveler === traveler.id ? Colors.WHITE : "#eeeded",
+            selectBudget === budget.id ? Colors.WHITE : "#eeeded",
         },
         styles.container,
       ]}
       onPress={handlePress}
     >
-      <Text style={styles.icon}>{traveler.icon}</Text>
+      <Text style={styles.icon}>{budget.icon}</Text>
       <View style={{ flex: 1 }}>
-        <Text style={styles.title}>{traveler.title}</Text>
-        <Text style={styles.desc}>{traveler.desc}</Text>
+        <Text style={styles.title}>{budget.title}</Text>
+        <Text style={styles.desc}>{budget.desc}</Text>
       </View>
     </Pressable>
   );
 };
 
-export default TravelerOptionCard;
+export default BudgetOptionCard;
 
 const styles = StyleSheet.create({
   container: {
@@ -49,10 +44,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 15,
-    // backgroundColor: "#eeeded",
-    marginTop: 10,
+    marginTop: 15,
     borderBottomWidth: 2,
-    borderRightWidth: 2,
+    borderLeftWidth: 2,
     borderColor: Colors.GRAY,
   },
   title: {

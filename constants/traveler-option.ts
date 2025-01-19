@@ -5,6 +5,12 @@ export interface TravelerOption {
   icon: string;
   people: string;
 }
+export interface BudgetOptions {
+  id: number;
+  title: string;
+  desc: string;
+  icon: string;
+}
 export const SelectTravelerList: TravelerOption[] = [
   {
     id: 1,
@@ -33,5 +39,26 @@ export const SelectTravelerList: TravelerOption[] = [
     desc: "Group of frinds chill togather and fun around the world",
     icon: "✈️",
     people: "5 to 10 persons",
+  },
+];
+
+export const SelectBudgetList: BudgetOptions[] = [
+  {
+    id: 1,
+    title: "Cheap",
+    desc: "Minimul budget as possible for cheap trip",
+    icon: "💰",
+  },
+  {
+    id: 2,
+    title: "Moderate",
+    desc: "Average trip cost not too low or not too expensive, modern trip",
+    icon: "💴",
+  },
+  {
+    id: 3,
+    title: "Expensive",
+    desc: "Maximul budget as possible for expensive trip",
+    icon: "💸",
   },
 ];

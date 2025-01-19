@@ -35,7 +35,6 @@ const SearchPlace = () => {
   };
   const onChangeText = (text: string) => {
     setQuery(text);
-    console.log(text.length);
     if (text.length > 1) {
       getPlacesData(text);
     } else {

@@ -18,6 +18,33 @@ export default function TripLayout() {
           headerTitle: "",
         }}
       />
+      <Stack.Screen
+        name="select-dates"
+        options={{
+          headerTransparent: true,
+          headerTitle: "",
+        }}
+      />
+      <Stack.Screen
+        name="select-budget"
+        options={{
+          headerTransparent: true,
+          headerTitle: "",
+        }}
+      />
+      <Stack.Screen
+        name="review-trip"
+        options={{
+          headerTransparent: true,
+          headerTitle: "",
+        }}
+      />
+      <Stack.Screen
+        name="generate-trip"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
