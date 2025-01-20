@@ -54,18 +54,18 @@ const CustomButton = forwardRef<any, ButtonProps>(
         {...props}
       >
         {/* Left icon */}
-        <View>{IconLeft && IconLeft}</View>
+        <View>{IconLeft && !loading && IconLeft}</View>
         <View>
           {loading ? (
             <Animated.View style={[{ transform: [{ rotate: spin }] }]}>
-              <Feather name="loader" size={20} color="white" />
+              <Feather name="loader" size={20} color={"blue"} />
             </Animated.View>
           ) : (
             <Text style={[styles.label, textStyle]}>{label}</Text>
           )}
         </View>
         {/* Right Icon */}
-        <View>{IconRight && IconRight}</View>
+        <View>{IconRight && !loading && IconRight}</View>
       </TouchableOpacity>
     );
   }

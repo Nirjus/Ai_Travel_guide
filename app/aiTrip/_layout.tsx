@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Drawer } from "expo-router/drawer";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function AiTripLayout() {
-  useEffect(() => {}, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer initialRouteName="MainTrip">

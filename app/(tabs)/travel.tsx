@@ -13,6 +13,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "@/config/firebase-config";
 import MainTripInfo from "@/components/AiTripComponents/mainTripInfo";
 import { Link } from "expo-router";
+import TripLoader from "@/components/AiTripComponents/TripLoader";
 
 export default function TripScreen() {
   const user = auth.currentUser;
@@ -57,19 +58,7 @@ export default function TripScreen() {
           )}
           keyExtractor={(item) => item.docId}
           ListEmptyComponent={
-            <>
-              {loading ? (
-                <ActivityIndicator
-                  size={"large"}
-                  color={"black"}
-                  style={{
-                    marginVertical: 40,
-                  }}
-                />
-              ) : (
-                <StartNewTripCard />
-              )}
-            </>
+            <>{loading ? <TripLoader /> : <StartNewTripCard />}</>
           }
         />
       </View>
