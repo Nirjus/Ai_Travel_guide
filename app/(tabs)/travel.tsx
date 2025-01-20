@@ -1,21 +1,77 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StartNewTripCard from "@/components/MyTrip/StartNewTripCard";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { auth, db } from "@/config/firebase-config";
+import MainTripInfo from "@/components/AiTripComponents/mainTripInfo";
+import { Link } from "expo-router";
 
 export default function TripScreen() {
-  const [userTrips, setUserTrips] = useState([]);
+  const user = auth.currentUser;
+  const [userTrips, setUserTrips] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
+  const getMyTrip = async () => {
+    try {
+      setLoading(true);
+      const q = query(
+        collection(db, "UserTrips"),
+        where("userEmail", "==", user?.email)
+      );
+      const querySnapShot = await getDocs(q);
+      const tripData = [] as any[];
+      querySnapShot.forEach((doc) => {
+        tripData.push(doc.data());
+      });
+      setUserTrips(tripData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    user && getMyTrip();
+  }, [user]);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Trips</Text>
-          <Ionicons name="add-circle" size={50} color="black" />
+          <Link href={"/trip/search-place"} asChild>
+            <Ionicons name="add-circle" size={50} color="black" />
+          </Link>
         </View>
-
-        {userTrips.length === 0 ? <StartNewTripCard /> : null}
+        <FlatList
+          data={userTrips}
+          renderItem={({ item }) => (
+            <MainTripInfo userTrip={item} key={item.docId} />
+          )}
+          keyExtractor={(item) => item.docId}
+          ListEmptyComponent={
+            <>
+              {loading ? (
+                <ActivityIndicator
+                  size={"large"}
+                  color={"black"}
+                  style={{
+                    marginVertical: 40,
+                  }}
+                />
+              ) : (
+                <StartNewTripCard />
+              )}
+            </>
+          }
+        />
       </View>
     </SafeAreaView>
   );

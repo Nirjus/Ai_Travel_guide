@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CalendarPicker from "react-native-calendar-picker";
 import { useRouter } from "expo-router";
+import moment from "moment";
 import { Colors } from "@/constants/Colors";
 import CustomButton from "@/components/custom-button";
 import { useAppContext } from "@/context/tripContext";
@@ -47,13 +48,19 @@ const SelectDates = () => {
       return;
     }
     const totalDays = totalNumberOfDays / 1000 / 60 / 60 / 24 + 1;
-    setState({ ...state, startDate, endDate, totalDays });
+    setState({
+      ...state,
+      startDate: moment(state?.startDate).format("DD MMM YYYY"),
+      endDate: moment(state?.endDate).format("DD MMM YYYY"),
+      totalDays,
+    });
     router.push("/trip/select-budget");
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text style={styles.hederTxt}>Select Dates</Text>
+        <Text style={styles.subText}>Best Time to go</Text>
         <View style={{ marginTop: 20, flex: 1 }}>
           <CalendarPicker
             onDateChange={onDateChange}
@@ -90,6 +97,14 @@ const styles = StyleSheet.create({
   hederTxt: {
     fontFamily: "Outfit-Bold",
     fontSize: 30,
-    marginVertical: 10,
+    marginTop: 10,
+    marginBottom: 5,
+    color: Colors.PRIMARY,
+  },
+  subText: {
+    fontFamily: "Outfit-Regular",
+    fontSize: 17,
+    marginBottom: 10,
+    color: Colors.GRAY,
   },
 });

@@ -8,7 +8,7 @@ export default function DestinationsScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Link href="/trip/generate-trip" asChild>
+        <Link href="/aiTrip/TripDetails" asChild>
           <CustomButton label="Press me" />
         </Link>
       </View>

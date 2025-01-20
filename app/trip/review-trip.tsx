@@ -1,7 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import moment from "moment";
 import { useAppContext } from "@/context/tripContext";
 import { Colors } from "@/constants/Colors";
 import CustomButton from "@/components/custom-button";
@@ -9,7 +8,6 @@ import { Link } from "expo-router";
 
 export default function ReviewTrip() {
   const { state } = useAppContext();
-  console.log(state);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
@@ -40,9 +38,9 @@ export default function ReviewTrip() {
                 Time period
               </Text>
               <Text style={styles.tripInfo}>
-                {moment(state?.startDate).format("DD MMM YYYY") + " - "}
-                {moment(state?.endDate).format("DD MMM YYYY") + " "}(
-                {state?.totalDays} days)
+                {state.startDate + " - " + state?.endDate + " "} (
+                {state?.totalDays}
+                days)
               </Text>
             </View>
           </View>

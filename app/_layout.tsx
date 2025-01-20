@@ -36,6 +36,7 @@ export default function RootLayout() {
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="trip" options={{ headerShown: false }} />
+        <Stack.Screen name="aiTrip" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="inverted" />
     </AppProvider>
