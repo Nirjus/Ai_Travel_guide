@@ -13,7 +13,7 @@ export default function MainTripInfo({
   directionRow = false,
   userTrip,
 }: Props) {
-  const { aiTripDataResponse } = userTrip;
+  const { aiTripDataResponse, docId } = userTrip;
   return (
     <View style={styles.container}>
       <View style={[directionRow && styles.card]}>
@@ -34,7 +34,7 @@ export default function MainTripInfo({
               ✈️{aiTripDataResponse?.tripDetails?.travelers?.type}
             </Text>
           </View>
-          <Link href={"/aiTrip/MainTrip"} asChild>
+          <Link href={`/(aiTrip)/${docId}`} asChild>
             {directionRow ? (
               <CustomButton
                 label="View Trip"

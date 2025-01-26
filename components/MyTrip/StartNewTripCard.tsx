@@ -16,7 +16,7 @@ const StartNewTripCard = () => {
       </Text>
       <CustomButton
         label="Start New Trip"
-        onPress={() => router.push("/trip/search-place")}
+        onPress={() => router.push("/(trip)/search-place")}
       />
     </View>
   );

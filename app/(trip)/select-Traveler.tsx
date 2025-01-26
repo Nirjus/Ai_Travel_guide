@@ -27,7 +27,7 @@ const SelectTraveler = () => {
           )}
           keyExtractor={(item) => item.id.toString()}
         />
-        <Link href={"/trip/select-dates"} asChild>
+        <Link href={"/(trip)/select-dates"} asChild>
           <CustomButton label="Continue" disabled={selectTraveler === -1} />
         </Link>
       </View>

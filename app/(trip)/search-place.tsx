@@ -11,12 +11,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Entypo from "@expo/vector-icons/Entypo";
 import { Colors } from "@/constants/Colors";
 import CustomInput from "@/components/custom-input";
 import { useAppContext } from "@/context/tripContext";
+import { popularSearches } from "@/constants/popular-searches";
 const SearchPlace = () => {
   const [query, setQuery] = useState("");
   const [places, setPlaces] = useState<any[]>([]);
+  const [popularSearch, setPopularSearch] = useState(false);
   const [placeSelected, setPlaceSelected] = useState(false);
   const router = useRouter();
   const { setState } = useAppContext();
@@ -34,6 +37,7 @@ const SearchPlace = () => {
     }
   };
   const onChangeText = (text: string) => {
+    setPopularSearch(false);
     setQuery(text);
     if (text.length > 1) {
       getPlacesData(text);
@@ -41,7 +45,10 @@ const SearchPlace = () => {
       setPlaces([]);
     }
   };
-
+  const magicRecomendation = () => {
+    setPopularSearch(true);
+    setPlaces(popularSearches);
+  };
   const onPressSelectLocation = (placeItem: any) => {
     setQuery(placeItem.display_name);
     setState({
@@ -49,7 +56,7 @@ const SearchPlace = () => {
     });
     setPlaceSelected(true);
     setPlaces([]);
-    router.push("/trip/select-Traveler");
+    router.push("/(trip)/select-Traveler");
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -62,27 +69,42 @@ const SearchPlace = () => {
           value={query}
         />
         <View style={styles.btnGroup}>
-          {query.length > 0 && (
+          <View
+            style={[styles.btnGroup, { justifyContent: "flex-start", gap: 10 }]}
+          >
+            <TouchableOpacity
+              style={[styles.removeBtn, { backgroundColor: Colors.PRIMARY }]}
+              activeOpacity={0.5}
+              onPress={magicRecomendation}
+            >
+              <Ionicons
+                name="sparkles-outline"
+                size={15}
+                color={Colors.WHITE}
+              />
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.removeBtn}
+              activeOpacity={0.5}
+              onPress={() => router.push("/(trip)/select-Traveler")}
+              disabled={!placeSelected}
+            >
+              <Text style={styles.removeText}>Next</Text>
+              <AntDesign name="arrowright" size={15} color={Colors.GRAY} />
+            </TouchableOpacity>
+          </View>
+          {query.length > 0 && (
+            <TouchableOpacity
+              style={styles.cross}
               activeOpacity={0.5}
               onPress={() => {
                 setQuery("");
                 setPlaceSelected(false);
               }}
             >
-              <Text style={styles.removeText}>Remove</Text>
+              <Entypo name="cross" size={20} color={Colors.GRAY} />
             </TouchableOpacity>
           )}
-          <TouchableOpacity
-            style={styles.removeBtn}
-            activeOpacity={0.5}
-            onPress={() => router.push("/trip/select-Traveler")}
-            disabled={!placeSelected}
-          >
-            <Text style={styles.removeText}>Next</Text>
-            <AntDesign name="arrowright" size={15} color={Colors.GRAY} />
-          </TouchableOpacity>
         </View>
         {places && places.length > 0 && (
           <FlatList
@@ -97,7 +119,14 @@ const SearchPlace = () => {
               </Pressable>
             )}
             keyExtractor={(item) => item.place_id}
-            style={{
+            ListHeaderComponent={
+              <>
+                {popularSearch && (
+                  <Text style={styles.popularSearch}>Popular Searches</Text>
+                )}
+              </>
+            }
+            contentContainerStyle={{
               marginTop: 10,
             }}
           />
@@ -123,6 +152,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: Colors.GRAY,
   },
+  popularSearch: {
+    fontSize: 16,
+    fontFamily: "Outfit-Medium",
+    textAlign: "center",
+  },
   suggestedItem: {
     padding: 10,
     backgroundColor: "#efefef",
@@ -138,15 +172,23 @@ const styles = StyleSheet.create({
   btnGroup: {
     flexDirection: "row",
     marginVertical: 5,
-    gap: 10,
+    justifyContent: "space-between",
+  },
+  cross: {
+    width: 25,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: -50,
+    marginRight: 10,
+    backgroundColor: "#efefef",
   },
   removeBtn: {
     padding: 5,
     paddingHorizontal: 15,
-    borderRadius: 5,
+    borderRadius: 2,
     borderWidth: 1,
     borderColor: Colors.GRAY,
-    backgroundColor: "#dadada",
     flexDirection: "row",
     gap: 10,
     alignItems: "center",

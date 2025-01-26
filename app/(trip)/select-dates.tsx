@@ -50,11 +50,11 @@ const SelectDates = () => {
     const totalDays = totalNumberOfDays / 1000 / 60 / 60 / 24 + 1;
     setState({
       ...state,
-      startDate: moment(state?.startDate).format("DD MMM YYYY"),
-      endDate: moment(state?.endDate).format("DD MMM YYYY"),
+      startDate: moment(startDate).format("DD MMM YYYY"),
+      endDate: moment(endDate).format("DD MMM YYYY"),
       totalDays,
     });
-    router.push("/trip/select-budget");
+    router.push("/(trip)/select-budget");
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -80,6 +80,7 @@ const SelectDates = () => {
           label="Continue"
           style={{ marginTop: 20 }}
           onPress={handleNext}
+          disabled={picdate.startDate === null || picdate.endDate === null}
         />
       </View>
     </SafeAreaView>

@@ -25,7 +25,7 @@ const SelectBudget = () => {
           )}
           keyExtractor={(item) => item.id.toString()}
         />
-        <Link href={"/trip/review-trip"} asChild>
+        <Link href={"/(trip)/review-trip"} asChild>
           <CustomButton
             label="Continue"
             style={{ marginTop: 10 }}

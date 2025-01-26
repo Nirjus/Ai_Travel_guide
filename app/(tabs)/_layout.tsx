@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Colors } from "@/constants/Colors";
 import { StatusBar } from "expo-status-bar";
@@ -36,6 +37,15 @@ export default function MainLayout() {
           tabBarLabel: "Destination",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="travel-explore" size={size} color={color} />
+          ),
+        }}
+      />
+       <Tabs.Screen
+        name="trip-manager"
+        options={{
+          tabBarLabel: "Trip manager",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="bag-carry-on" size={size} color={color} />
           ),
         }}
       />

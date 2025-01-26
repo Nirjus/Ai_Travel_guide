@@ -1,15 +1,8 @@
 import React from "react";
 import { ScrollView, Text, StyleSheet } from "react-native";
-import ItineraryDay from "@/components/AiTripComponents/ItineraryDay";
 
 const AttractionScreen = () => {
-  return (
-    <ScrollView>
-      {/* {itineraryData.map((day, index) => (
-        <ItineraryDay key={index} {...day} />
-      ))} */}
-    </ScrollView>
-  );
+  return <ScrollView></ScrollView>;
 };
 
 export default AttractionScreen;

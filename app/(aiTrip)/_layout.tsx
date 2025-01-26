@@ -5,10 +5,11 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 export default function AiTripLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Drawer initialRouteName="MainTrip">
+      <Drawer initialRouteName="[tripId]">
         <Drawer.Screen
-          name="MainTrip"
+          name="[tripId]"
           options={{
+            title: "",
             headerTransparent: true,
             drawerLabel: "Your Trip",
           }}

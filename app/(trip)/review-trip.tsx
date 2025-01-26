@@ -72,7 +72,7 @@ export default function ReviewTrip() {
             </View>
           </View>
         </View>
-        <Link href={"/trip/generate-trip"} replace asChild>
+        <Link href={"/(trip)/generate-trip"} replace asChild>
           <CustomButton label="Build My Trip" />
         </Link>
       </ScrollView>

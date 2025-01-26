@@ -1,18 +1,12 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
+import { Link } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import StartNewTripCard from "@/components/MyTrip/StartNewTripCard";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import StartNewTripCard from "@/components/MyTrip/StartNewTripCard";
 import { auth, db } from "@/config/firebase-config";
 import MainTripInfo from "@/components/AiTripComponents/mainTripInfo";
-import { Link } from "expo-router";
 import TripLoader from "@/components/AiTripComponents/TripLoader";
 
 export default function TripScreen() {
@@ -47,7 +41,7 @@ export default function TripScreen() {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Trips</Text>
-          <Link href={"/trip/search-place"} asChild>
+          <Link href={"/(trip)/search-place"} asChild>
             <Ionicons name="add-circle" size={50} color="black" />
           </Link>
         </View>
